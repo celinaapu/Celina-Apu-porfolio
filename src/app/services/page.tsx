@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Code,
   Globe,
@@ -238,7 +238,6 @@ const ServicesPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
-      {/* Decorative background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-4 h-4 bg-blue-200 rounded-full opacity-60 animate-bounce"></div>
         <div className="absolute top-40 right-20 w-6 h-6 bg-indigo-200 rounded-full opacity-40 animate-pulse"></div>
@@ -259,7 +258,6 @@ const ServicesPage = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-slate-200/60 overflow-hidden">
-          {/* Browser header */}
           <div className="bg-slate-100/80 px-6 py-4 border-b border-slate-200/60 flex items-center space-x-2">
             <div className="flex space-x-2">
               <div className="w-3 h-3 bg-red-400 rounded-full animate-pulse" />
@@ -278,7 +276,6 @@ const ServicesPage = () => {
           </div>
 
           <div className="p-8">
-            {/* Header Section */}
             <div className="text-center mb-12">
               <div className="text-blue-600 font-mono text-sm mb-4 animate-pulse">
                 what I can do for you
@@ -293,10 +290,11 @@ const ServicesPage = () => {
               </p>
             </div>
 
-            {/* Services Grid - Responsive: 1 on sm, 2 on md, 3 on lg, 2 on xl */}
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 2xl:grid-cols-4 gap-6 mb-12">
-              {services.map((service, index) => (
+              {services.map((service, _index) => (
                 <div
+                  role="button"
+                  tabIndex={0}
                   key={service.id}
                   className={`${service.bgColor} ${service.borderColor} border rounded-xl p-6 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:-translate-y-2 group cursor-pointer`}
                   onClick={() =>
@@ -304,6 +302,13 @@ const ServicesPage = () => {
                       selectedService === service.id ? null : service.id
                     )
                   }
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      setSelectedService(
+                        selectedService === service.id ? null : service.id
+                      );
+                    }
+                  }}
                 >
                   <div
                     className={`w-16 h-16 ${service.iconColor} rounded-xl flex items-center justify-center shadow-lg mb-4 transform group-hover:rotate-6 group-hover:scale-110 transition-all duration-300`}
@@ -319,7 +324,6 @@ const ServicesPage = () => {
                     {service.description}
                   </p>
 
-                  {/* Expandable details */}
                   {selectedService === service.id && (
                     <div className="mt-4 pt-4 border-t border-slate-200 animate-pulse">
                       <div className="mb-4">
@@ -327,9 +331,9 @@ const ServicesPage = () => {
                           What's Included:
                         </h4>
                         <ul className="space-y-1">
-                          {service.features.map((feature, idx) => (
+                          {service.features.map((feature) => (
                             <li
-                              key={idx}
+                              key={feature}
                               className="flex items-center gap-2 text-sm text-slate-600"
                             >
                               <Check className="w-4 h-4 text-green-500" />
@@ -344,9 +348,9 @@ const ServicesPage = () => {
                           Core Technologies:
                         </h4>
                         <div className="flex flex-wrap gap-2 mb-4">
-                          {service.technologies.map((tech, idx) => (
+                          {service.technologies.map((tech) => (
                             <span
-                              key={idx}
+                              key={tech}
                               className="px-2 py-1 bg-white/60 text-xs font-medium text-slate-700 rounded-md"
                             >
                               {tech}
@@ -361,22 +365,20 @@ const ServicesPage = () => {
                         </h4>
                         <div className="space-y-3">
                           {Object.entries(service.techStack).map(
-                            ([category, techs], idx) => (
-                              <div key={idx}>
+                            ([category, techs]) => (
+                              <div key={category}>
                                 <h5 className="text-sm font-medium text-slate-700 mb-1">
                                   {category}:
                                 </h5>
                                 <div className="flex flex-wrap gap-1">
-                                  {techs.map(
-                                    (tech: string, techIdx: number) => (
-                                      <span
-                                        key={techIdx}
-                                        className="px-2 py-0.5 bg-slate-100 text-xs text-slate-600 rounded"
-                                      >
-                                        {tech}
-                                      </span>
-                                    )
-                                  )}
+                                  {techs.map((tech: string) => (
+                                    <span
+                                      key={tech}
+                                      className="px-2 py-0.5 bg-slate-100 text-xs text-slate-600 rounded"
+                                    >
+                                      {tech}
+                                    </span>
+                                  ))}
                                 </div>
                               </div>
                             )
@@ -386,7 +388,10 @@ const ServicesPage = () => {
                     </div>
                   )}
 
-                  <button className="w-full mt-4 bg-white/60 hover:bg-white/80 border border-slate-200 hover:border-slate-300 text-slate-700 font-medium py-2 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 group-hover:shadow-md">
+                  <button
+                    type="button"
+                    className="w-full mt-4 bg-white/60 hover:bg-white/80 border border-slate-200 hover:border-slate-300 text-slate-700 font-medium py-2 px-4 rounded-lg transition-all duration-200 flex items-center justify-center gap-2 group-hover:shadow-md"
+                  >
                     {selectedService === service.id
                       ? "Hide Details"
                       : "View Details"}
@@ -402,7 +407,6 @@ const ServicesPage = () => {
               ))}
             </div>
 
-            {/* What Do You Need Section */}
             <div className="bg-gradient-to-r from-slate-50 to-gray-50 rounded-xl p-8 mb-12 border border-slate-200">
               <h2 className="text-2xl font-bold text-slate-800 mb-6 text-center">
                 What Do You Need?
@@ -465,7 +469,6 @@ const ServicesPage = () => {
               </div>
             </div>
 
-            {/* Process Section */}
             <div className="mb-12">
               <h2 className="text-2xl font-bold text-slate-800 mb-8 text-center">
                 How We Work Together
@@ -501,8 +504,8 @@ const ServicesPage = () => {
                       "We launch your project and I provide ongoing support",
                     color: "bg-orange-500",
                   },
-                ].map((step, index) => (
-                  <div key={index} className="text-center group">
+                ].map((step, _index) => (
+                  <div key={step.step} className="text-center group">
                     <div
                       className={`w-16 h-16 ${step.color} text-white rounded-full flex items-center justify-center mx-auto mb-4 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg`}
                     >
@@ -519,7 +522,6 @@ const ServicesPage = () => {
               </div>
             </div>
 
-            {/* Contact CTA Section */}
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-center text-white">
               <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
               <p className="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
@@ -528,9 +530,10 @@ const ServicesPage = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                {contactMethods.map((contact, index) => (
+                {contactMethods.map((contact, _index) => (
                   <button
-                    key={index}
+                    type="button"
+                    key={contact.label}
                     onClick={contact.action}
                     className={`${contact.color} px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg transform flex items-center gap-2 min-w-[140px] justify-center group`}
                   >
@@ -547,7 +550,6 @@ const ServicesPage = () => {
               </p>
             </div>
 
-            {/* FAQ Section */}
             <div className="mt-12 bg-white/50 rounded-xl p-8">
               <h2 className="text-2xl font-bold text-slate-800 mb-6 text-center">
                 Frequently Asked Questions
@@ -571,9 +573,9 @@ const ServicesPage = () => {
                     q: "What's included in the pricing?",
                     a: "All prices include development, testing, deployment, and basic SEO optimization.",
                   },
-                ].map((faq, index) => (
+                ].map((faq, _index) => (
                   <div
-                    key={index}
+                    key={faq.q}
                     className="p-4 bg-white/60 rounded-lg border border-slate-200 hover:shadow-md transition-all duration-300 hover:scale-[1.02]"
                   >
                     <h4 className="font-semibold text-slate-800 mb-2">

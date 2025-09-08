@@ -1,16 +1,9 @@
-"use client"
+"use client";
 
-import React, { useState } from "react";
-import {
-  ExternalLink,
-  Github,
-  Calendar,
-  Users,
-  Zap,
-  Code,
-  Globe,
-  Database,
-} from "lucide-react";
+import Image from "next/image";
+import type React from "react";
+import { useState } from "react";
+import { Calendar, Github, Globe, Users } from "lucide-react";
 
 interface Project {
   id: string;
@@ -33,7 +26,6 @@ const ProjectsPage: React.FC = () => {
   >("all");
 
   const projects: Project[] = [
-    // Complete Apps
     {
       id: "kendee-real-estate",
       title: "Kendee Real Estate Platform",
@@ -135,7 +127,6 @@ const ProjectsPage: React.FC = () => {
       teamSize: 1,
     },
 
-    // Small Projects
     {
       id: "portfolio-website",
       title: "Personal Portfolio",
@@ -242,9 +233,8 @@ const ProjectsPage: React.FC = () => {
         size === "large" ? "h-auto" : "h-full"
       }`}
     >
-      {/* Project Image */}
       <div className="relative overflow-hidden">
-        <img
+        <Image
           src={project.image}
           alt={project.title}
           className={`w-full object-cover transition-transform duration-300 group-hover:scale-105 ${
@@ -263,7 +253,6 @@ const ProjectsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Project Content */}
       <div className="p-6">
         <div className="flex items-start justify-between mb-3">
           <h3
@@ -285,13 +274,12 @@ const ProjectsPage: React.FC = () => {
           {project.description}
         </p>
 
-        {/* Tech Stack */}
         <div className="flex flex-wrap gap-1 mb-4">
           {project.tech
             .slice(0, size === "large" ? 5 : 3)
-            .map((tech, index) => (
+            .map((tech, _index) => (
               <span
-                key={index}
+                key={tech}
                 className="px-2 py-1 bg-slate-100 text-slate-700 text-xs rounded-md font-medium"
               >
                 {tech}
@@ -304,12 +292,11 @@ const ProjectsPage: React.FC = () => {
           )}
         </div>
 
-        {/* Features */}
         {size === "large" && (
           <div className="mb-4">
             <div className="grid grid-cols-2 gap-1 text-xs text-slate-600">
-              {project.features.slice(0, 4).map((feature, index) => (
-                <div key={index} className="flex items-center">
+              {project.features.slice(0, 4).map((feature, _index) => (
+                <div key={feature} className="flex items-center">
                   <div className="w-1 h-1 bg-green-500 rounded-full mr-2"></div>
                   {feature}
                 </div>
@@ -318,7 +305,6 @@ const ProjectsPage: React.FC = () => {
           </div>
         )}
 
-        {/* Footer */}
         <div className="flex items-center justify-between pt-4 border-t border-slate-200/60">
           <div className="flex items-center text-slate-500 text-xs">
             <Calendar size={12} className="mr-1" />
@@ -351,7 +337,6 @@ const ProjectsPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
-      {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-4 h-4 bg-blue-200 rounded-full opacity-60 animate-bounce"></div>
         <div className="absolute top-32 right-20 w-6 h-6 bg-indigo-200 rounded-full opacity-40 animate-pulse"></div>
@@ -363,9 +348,7 @@ const ProjectsPage: React.FC = () => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-        {/* Terminal-style container */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-slate-200/60 overflow-hidden">
-          {/* Terminal header */}
           <div className="bg-slate-100/80 px-6 py-4 border-b border-slate-200/60 flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <div className="flex space-x-2">
@@ -378,11 +361,11 @@ const ProjectsPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Filter buttons */}
             <div className="flex space-x-2">
               {(["all", "complete-apps", "small-projects"] as const).map(
                 (filter) => (
                   <button
+                    type="button"
                     key={filter}
                     onClick={() => setActiveFilter(filter)}
                     className={`px-3 py-1 text-xs rounded-md font-medium transition-colors ${
@@ -406,13 +389,11 @@ const ProjectsPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Terminal content */}
           <div className="p-8">
             <div className="text-green-600 font-mono text-sm mb-6">
               ls -la projects
             </div>
 
-            {/* Header */}
             <div className="mb-8">
               <h1 className="text-4xl font-bold text-slate-800 mb-4">
                 My Projects
@@ -423,7 +404,6 @@ const ProjectsPage: React.FC = () => {
               </p>
             </div>
 
-            {/* Complete Apps Section */}
             {(activeFilter === "all" || activeFilter === "complete-apps") &&
               completeApps.length > 0 && (
                 <div className="mb-12">
@@ -443,7 +423,6 @@ const ProjectsPage: React.FC = () => {
                 </div>
               )}
 
-            {/* Small Projects Section */}
             {(activeFilter === "all" || activeFilter === "small-projects") &&
               smallProjects.length > 0 && (
                 <div>
@@ -463,7 +442,6 @@ const ProjectsPage: React.FC = () => {
                 </div>
               )}
 
-            {/* Stats Footer */}
             <div className="mt-12 pt-8 border-t border-slate-200/60">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                 <div className="bg-blue-50 rounded-lg p-4">

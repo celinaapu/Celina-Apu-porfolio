@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface SkillCategory {
   title: string;
@@ -12,7 +12,7 @@ interface JourneyItem {
   text: string;
 }
 
-const AboutPage: React.FC = () => {
+export default function AboutPage() {
   const [typedText, setTypedText] = useState<string>("");
   const fullText = "Hello, I'm Celina!";
 
@@ -77,9 +77,7 @@ const AboutPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
-      {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Floating geometric shapes */}
         <div className="absolute top-20 left-10 w-4 h-4 bg-blue-200 rounded-full opacity-60 animate-bounce"></div>
         <div className="absolute top-32 right-20 w-6 h-6 bg-indigo-200 rounded-full opacity-40 animate-pulse"></div>
         <div className="absolute top-48 left-1/4 w-3 h-3 bg-slate-300 rounded-full opacity-50 animate-ping"></div>
@@ -96,14 +94,11 @@ const AboutPage: React.FC = () => {
           style={{ animationDelay: "0.5s" }}
         ></div>
 
-        {/* Grid pattern overlay */}
         <div className="absolute inset-0 bg-grid-slate-100/50 bg-[size:20px_20px] opacity-30"></div>
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-        {/* Terminal-style container */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-slate-200/60 overflow-hidden mb-8">
-          {/* Terminal header */}
           <div className="bg-slate-100/80 px-6 py-4 border-b border-slate-200/60 flex items-center space-x-2">
             <div className="flex space-x-2">
               <div className="w-3 h-3 bg-red-400 rounded-full"></div>
@@ -115,16 +110,13 @@ const AboutPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Terminal content */}
           <div className="p-8">
             <div className="text-green-600 font-mono text-sm mb-6">
-              who am i?
+              who am I?
             </div>
 
-            {/* Introduction with Image */}
             <div className="mb-8">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                {/* Content Side */}
                 <div className="lg:col-span-7">
                   <h1 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6 min-h-[3.5rem]">
                     {typedText}
@@ -132,27 +124,27 @@ const AboutPage: React.FC = () => {
                   </h1>
                   <div className="space-y-4 text-slate-700 text-lg leading-relaxed">
                     <p>
-                      I'm a{" "}
+                      I'm a
                       <span className="font-semibold text-blue-600">
                         highly motivated Full Stack Developer
-                      </span>{" "}
+                      </span>
                       with a unique journey from Microbiology to modern web
-                      development. Based in Nigeria, I specialize in crafting{" "}
+                      development. Based in Nigeria, I specialize in crafting
                       <span className="font-semibold text-indigo-600">
                         robust, scalable web applications
-                      </span>{" "}
+                      </span>
                       that transform complex ideas into intuitive and highly
                       functional digital experiences.
                     </p>
                     <p>
-                      Transforming my{" "}
+                      Transforming my
                       <span className="font-semibold text-purple-600">
                         creativity and technical expertise
-                      </span>{" "}
+                      </span>
                       into cutting-edge websites has been my passion. I thrive
                       on building applications from scratch and raising them
                       into modern, user-friendly web experiences that drive real
-                      business results. I also{" "}
+                      business results. I also
                       <span className="font-semibold text-emerald-600">
                         enjoy working in collaborative teams
                       </span>
@@ -167,14 +159,11 @@ const AboutPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Image Side */}
                 <div className="lg:col-span-5 flex justify-center lg:justify-end">
                   <div className="relative">
-                    {/* Decorative background */}
                     <div className="absolute -inset-4 bg-gradient-to-r from-blue-200 to-purple-200 rounded-2xl transform rotate-3 opacity-50"></div>
                     <div className="absolute -inset-2 bg-gradient-to-r from-indigo-200 to-pink-200 rounded-2xl transform -rotate-2 opacity-30"></div>
 
-                    {/* Main image container */}
                     <div className="relative bg-white rounded-2xl p-2 shadow-xl">
                       <Image
                         src="https://res.cloudinary.com/celina/image/upload/v1756409888/Gemini_Generated_Image_7jti0f7jti0f7jti_1_dlrcww.png"
@@ -184,7 +173,6 @@ const AboutPage: React.FC = () => {
                         className="w-72 h-96 object-cover rounded-xl"
                       />
 
-                      {/* Floating status badge */}
                       <div className="absolute -bottom-4 -right-4 bg-green-500 text-white px-4 py-2 rounded-full font-medium shadow-lg flex items-center space-x-2">
                         <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
                         <span className="text-sm">Available for projects</span>
@@ -195,7 +183,6 @@ const AboutPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Skills Section */}
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center">
                 <span className="text-blue-500 mr-2">#</span>
@@ -203,18 +190,18 @@ const AboutPage: React.FC = () => {
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {skillCategories.map((category, index) => (
+                {skillCategories.map((category) => (
                   <div
-                    key={index}
+                    key={category.title}
                     className="bg-white/60 backdrop-blur-sm rounded-xl p-6 border border-slate-200/60 hover:border-blue-300/60 hover:shadow-md transition-all duration-300 hover:-translate-y-1"
                   >
                     <h3 className="text-lg font-semibold text-slate-800 mb-4">
                       {category.title}
                     </h3>
                     <div className="flex flex-wrap gap-2">
-                      {category.skills.map((skill, skillIndex) => (
+                      {category.skills.map((skill) => (
                         <span
-                          key={skillIndex}
+                          key={skill}
                           className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium hover:bg-blue-200 transition-colors duration-200 cursor-default"
                         >
                           {skill}
@@ -226,7 +213,6 @@ const AboutPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Journey Section */}
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center">
                 <span className="text-green-500 mr-2">#</span>
@@ -234,9 +220,9 @@ const AboutPage: React.FC = () => {
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {journeyItems.map((item, index) => (
+                {journeyItems.map((item) => (
                   <div
-                    key={index}
+                    key={item.text}
                     className="bg-slate-50/60 backdrop-blur-sm rounded-lg p-4 border border-slate-200/40 hover:border-green-300/60 hover:shadow-sm transition-all duration-300 hover:translate-x-1 group"
                   >
                     <div className="flex items-start space-x-3">
@@ -252,7 +238,6 @@ const AboutPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Current Focus */}
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center">
                 <span className="text-purple-500 mr-2">#</span>
@@ -260,9 +245,9 @@ const AboutPage: React.FC = () => {
               </h2>
               <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-6 border border-purple-200/40">
                 <p className="text-slate-700 text-lg leading-relaxed">
-                  Currently working as a{" "}
+                  Currently working as a
                   <span className="font-semibold text-purple-600">
-                    Frontend Developer at Kendee Real Estate
+                    Frontend Developer at Arya Realties
                   </span>
                   , where I collaborate with UI/UX designers and backend
                   engineers to build engaging, responsive interfaces for
@@ -276,7 +261,6 @@ const AboutPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Contact Section */}
             <div className="pt-8 border-t border-slate-200/60">
               <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center">
                 <span className="text-indigo-500 mr-2">#</span>
@@ -340,6 +324,4 @@ const AboutPage: React.FC = () => {
       `}</style>
     </div>
   );
-};
-
-export default AboutPage;
+}

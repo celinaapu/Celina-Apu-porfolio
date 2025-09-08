@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
-import { Mail, Linkedin, Github } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
+import type { FC, MouseEvent } from "react";
 
-const ContactPage: React.FC = () => {
-  const handleEmailClick = (e: React.MouseEvent<HTMLDivElement>) => {
+const ContactPage: FC = () => {
+  const handleEmailClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (window.confirm("Open email client to send message?")) {
       window.open("mailto:apucelina13@gmail.com");
@@ -25,11 +25,11 @@ const ContactPage: React.FC = () => {
       icon: <Linkedin className="w-5 h-5" />,
       title: "LinkedIn",
       value: "linkedin.com/in/celina-apu-41a428337",
-      action: (e: React.MouseEvent<HTMLDivElement>) => {
+      action: (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         window.open(
           "https://www.linkedin.com/in/celina-apu-41a428337",
-          "_blank"
+          "_blank",
         );
       },
       bgColor: "bg-gradient-to-br from-blue-50 to-blue-100",
@@ -40,7 +40,7 @@ const ContactPage: React.FC = () => {
       icon: <Github className="w-5 h-5" />,
       title: "GitHub",
       value: "github.com/celinaapu",
-      action: (e: React.MouseEvent<HTMLDivElement>) => {
+      action: (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         window.open("https://github.com/celinaapu", "_blank");
       },
@@ -52,7 +52,7 @@ const ContactPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
-      {/* Decorative background elements */}
+      {/* floating background shapes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-4 h-4 bg-blue-200 rounded-full opacity-60 animate-bounce"></div>
         <div className="absolute top-40 right-20 w-6 h-6 bg-indigo-200 rounded-full opacity-40 animate-pulse"></div>
@@ -104,7 +104,6 @@ const ContactPage: React.FC = () => {
               get in touch
             </div>
 
-            {/* Main heading */}
             <div className="text-center mb-12">
               <h1 className="text-4xl font-bold text-slate-800 mb-4 transform hover:scale-105 transition-all duration-300 cursor-default">
                 Let's Work Together
@@ -130,13 +129,13 @@ const ContactPage: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Simplified contact cards grid */}
                 <div className="w-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
-                  {contactMethods.map((method, index) => (
-                    <div
-                      key={index}
-                      onClick={(e) => method.action && method.action(e)}
-                      className={`${method.bgColor} ${method.borderColor} flex flex-col items-center gap-3 p-6 border rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:-translate-y-2 group cursor-pointer hover:shadow-xl`}
+                  {contactMethods.map((method) => (
+                    <button
+                      key={method.title}
+                      type="button"
+                      onClick={(e) => method.action?.(e)}
+                      className={`${method.bgColor} ${method.borderColor} flex flex-col items-center gap-3 p-6 border rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:-translate-y-2 group hover:shadow-xl focus:outline-none`}
                     >
                       <div
                         className={`w-12 h-12 ${method.iconColor} rounded-full flex items-center justify-center shadow-lg transform group-hover:rotate-6 group-hover:scale-110 transition-all duration-300`}
@@ -151,7 +150,7 @@ const ContactPage: React.FC = () => {
                           {method.value}
                         </p>
                       </div>
-                    </div>
+                    </button>
                   ))}
                 </div>
 

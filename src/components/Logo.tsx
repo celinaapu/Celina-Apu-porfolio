@@ -1,29 +1,37 @@
 "use client";
 
-import React from "react";
-
 const Logo = () => {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center">
       <div className="w-14 h-14 flex items-center justify-center relative group transition-all duration-300">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 200 200"
           className="w-full h-full group-hover:drop-shadow-lg transition-all duration-300"
+          role="img"
+          aria-labelledby="diamond-icon-title"
         >
+          <title id="diamond-icon-title">Diamond Icon with C</title>
+
           <path
             d="M100 10 L40 50 V150 L100 190 Z"
             fill="url(#purpleGradient)"
           />
           <path d="M100 10 L160 50 V150 L100 190 Z" fill="url(#darkGradient)" />
 
-          <path
-            d="M75 70 V130 H10 V110 H110 V130 H125 V70 H110 V90 C90 V70 Z"
+          <text
+            x="100"
+            y="125"
+            textAnchor="middle"
+            fontSize="80"
+            fontWeight="bold"
             fill="white"
-          />
-          {/* Up Arrow */}
-          <path d="M90 35 L100 15 L110 35 Z" fill="#a855f7" />
+            fontFamily="Arial, Helvetica, sans-serif"
+          >
+            C
+          </text>
 
+          <path d="M90 35 L100 15 L110 35 Z" fill="#a855f7" />
           <path d="M90 165 L100 185 L110 165 Z" fill="#6b7280" />
 
           <defs>
