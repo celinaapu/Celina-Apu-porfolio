@@ -1,478 +1,296 @@
 "use client";
 
+import { ExternalLink, Github, Loader2 } from "lucide-react";
 import Image from "next/image";
-import type React from "react";
+import Link from "next/link";
 import { useState } from "react";
-import { Calendar, Github, Globe, Users } from "lucide-react";
 
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  tech: string[];
-  category: "complete-apps" | "small-projects";
-  liveUrl?: string;
-  githubUrl?: string;
-  features: string[];
-  status: "completed" | "in-progress";
-  date: string;
-  teamSize?: number;
-}
+const projects = [
+  {
+    title: "Realtime Weather Dashboard",
+    description:
+      "A modern, responsive weather dashboard built with React, TypeScript, and Zustand. Features real-time clock, dark/light mode, Celsius/Fahrenheit toggle, and simulated API fetching for current and 5-day forecasts.",
+    image:
+      "https://res.cloudinary.com/celina/image/upload/v1762884877/Screenshot_From_2025-11-11_19-14-11_eyyvca.png",
+    liveUrl: "https://realtime-weather-dashboard.netlify.app/",
+    githubUrl: "https://github.com/celinaapu/weather-dashboard",
+    status: "Active",
+  },
+  {
+    title: "Context vs Zustand Demo",
+    description:
+      "A clean and interactive demo comparing Context API and Zustand for state management in React. Includes routine creation, media preview, and persistent storage.",
+    image:
+      "https://res.cloudinary.com/celina/image/upload/v1762860379/Screenshot_From_2025-11-11_12-24-53_l4xrmr.png",
+    liveUrl: "https://context-api-vs-zustand-routine-app.netlify.app/",
+    status: "Active",
+  },
 
-const ProjectsPage: React.FC = () => {
-  const [activeFilter, setActiveFilter] = useState<
-    "all" | "complete-apps" | "small-projects"
-  >("all");
+  {
+    title: "Monthly Expense Tracker",
+    description:
+      "A financial management app with Redux Toolkit and Chart.js. Track monthly income, expenses, and savings goals with elegant dark UI and currency conversion.",
+    image:
+      "https://res.cloudinary.com/celina/image/upload/v1762861457/Screenshot_From_2025-11-11_12-42-30_a3gpkw.png",
+    liveUrl: "https://month-expense-tracker.netlify.app/",
+    status: "Active",
+  },
+  {
+    title: "Smart Build Services",
+    description:
+      "A responsive real estate platform showcasing smart property listings and modern UI design with Next.js and Tailwind CSS.",
+    image:
+      "https://res.cloudinary.com/celina/image/upload/v1762862732/Screenshot_From_2025-11-11_13-05-10_olam1a.png",
+    liveUrl: "https://smart-build-services.netlify.app/",
+    status: "Active",
+  },
+  {
+    title: "Portfolio Website",
+    description:
+      "My personal portfolio built with Next.js 15, TailwindCSS, React, and TypeScript. Showcases my projects, services, and skills.",
+    image:
+      "https://res.cloudinary.com/celina/image/upload/v1762863237/Screenshot_From_2025-11-11_13-13-40_mnc12x.png",
+    liveUrl: "https://celina-porfolio.netlify.app/",
+    status: "Active",
+  },
+  {
+    title: "Advanced To-Do App",
+    description:
+      "An advanced routine management app built with Zustand and Context API comparison. Supports media uploads, routine persistence, and optimized state handling.",
+    image:
+      "https://res.cloudinary.com/celina/image/upload/v1762861457/Screenshot_From_2025-11-11_12-38-40_cviouh.png",
+    liveUrl: "https://context-api-vs-zustand-routine-app.netlify.app/",
+    status: "Active",
+  },
+  {
+    title: "Recipe Blog (Fullstack)",
+    description:
+      "A complete food recipe platform with user authentication, CRUD recipe management, and media uploads. Built with Next.js (frontend) and Express + MongoDB (backend). Currently in progress as the backend is being deployed to Render for public access. Developers can explore the backend source code below.",
+    image:
+      "https://res.cloudinary.com/celina/image/upload/v1762883475/Screenshot_From_2025-11-11_18-48-14_qrbdnz.png",
+    liveUrl: "https://next-recipe-blog.netlify.app/",
+    frontendGithub: "https://github.com/celinaapu/Next-recipe-blog",
+    backendGithub: "https://github.com/celinaapu/Express-recipe-blog-vault",
+    status: "In Progress",
+  },
+];
 
-  const projects: Project[] = [
-    {
-      id: "kendee-real-estate",
-      title: "Kendee Real Estate Platform",
-      description:
-        "Comprehensive real estate platform with property listings, user profiles, and advanced search capabilities. Built with modern React architecture.",
-      image: "/api/placeholder/400/300",
-      tech: [
-        "React.js",
-        "TypeScript",
-        "Next.js",
-        "Tailwind CSS",
-        "RESTful APIs",
-      ],
-      category: "complete-apps",
-      liveUrl: "#",
-      githubUrl: "#",
-      features: [
-        "Property Listings",
-        "User Authentication",
-        "Advanced Search",
-        "Responsive Design",
-      ],
-      status: "in-progress",
-      date: "July 2025 - Present",
-      teamSize: 4,
-    },
-    {
-      id: "kraftaa-marketplace",
-      title: "Kraftaa Marketplace",
-      description:
-        "Full-featured marketplace platform connecting over 500 craftspeople with customers. Includes job posting, search functionality, and vendor management.",
-      image: "/api/placeholder/400/300",
-      tech: ["React.js", "Vue.js", "TypeScript", "Redux", "Node.js", "MongoDB"],
-      category: "complete-apps",
-      liveUrl: "#",
-      githubUrl: "#",
-      features: [
-        "Job Posting System",
-        "Vendor Onboarding",
-        "Payment Integration",
-        "Interactive Maps",
-      ],
-      status: "completed",
-      date: "March - June 2025",
-      teamSize: 6,
-    },
-    {
-      id: "recipe-blog",
-      title: "Recipe Blog Platform",
-      description:
-        "End-to-end web application for recipe management with user authentication, dynamic forms, and optimized database queries.",
-      image: "/api/placeholder/400/300",
-      tech: [
-        "Next.js",
-        "React.js",
-        "Node.js",
-        "Express.js",
-        "MongoDB",
-        "Tailwind CSS",
-      ],
-      category: "complete-apps",
-      liveUrl: "#",
-      githubUrl: "#",
-      features: [
-        "Recipe Management",
-        "User Profiles",
-        "Search & Filter",
-        "Responsive UI",
-      ],
-      status: "completed",
-      date: "April 2024",
-      teamSize: 1,
-    },
-    {
-      id: "task-manager",
-      title: "Advanced Todo Manager",
-      description:
-        "Comprehensive task management application with Redux Toolkit, JWT authentication, and data visualization features.",
-      image: "/api/placeholder/400/300",
-      tech: [
-        "React.js",
-        "TypeScript",
-        "Redux Toolkit",
-        "Node.js",
-        "Chart.js",
-        "MongoDB",
-      ],
-      category: "complete-apps",
-      liveUrl: "#",
-      githubUrl: "#",
-      features: [
-        "Task Analytics",
-        "Team Collaboration",
-        "Priority Management",
-        "Email Notifications",
-      ],
-      status: "completed",
-      date: "October 2023",
-      teamSize: 1,
-    },
-
-    {
-      id: "portfolio-website",
-      title: "Personal Portfolio",
-      description:
-        "Modern portfolio website showcasing projects and skills with smooth animations and responsive design.",
-      image: "/api/placeholder/300/200",
-      tech: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-      category: "small-projects",
-      liveUrl: "#",
-      githubUrl: "#",
-      features: ["Dark/Light Mode", "Smooth Animations", "Contact Form"],
-      status: "completed",
-      date: "2025",
-    },
-    {
-      id: "weather-app",
-      title: "Weather Dashboard",
-      description:
-        "Real-time weather application with location-based forecasts and interactive maps using external APIs.",
-      image: "/api/placeholder/300/200",
-      tech: ["React.js", "JavaScript", "Weather API", "Leaflet"],
-      category: "small-projects",
-      liveUrl: "#",
-      githubUrl: "#",
-      features: ["Live Weather Data", "5-Day Forecast", "Interactive Maps"],
-      status: "completed",
-      date: "2024",
-    },
-    {
-      id: "expense-tracker",
-      title: "Expense Tracker",
-      description:
-        "Personal finance management tool with data visualization and budget tracking capabilities.",
-      image: "/api/placeholder/300/200",
-      tech: ["Vue.js", "Chart.js", "Local Storage", "CSS3"],
-      category: "small-projects",
-      liveUrl: "#",
-      githubUrl: "#",
-      features: ["Budget Management", "Expense Categories", "Visual Reports"],
-      status: "completed",
-      date: "2024",
-    },
-    {
-      id: "color-palette",
-      title: "Color Palette Generator",
-      description:
-        "Tool for generating harmonious color palettes for web design projects with export functionality.",
-      image: "/api/placeholder/300/200",
-      tech: ["JavaScript", "HTML5", "CSS3", "Canvas API"],
-      category: "small-projects",
-      liveUrl: "#",
-      githubUrl: "#",
-      features: ["Color Generation", "Palette Export", "Accessibility Check"],
-      status: "completed",
-      date: "2023",
-    },
-    {
-      id: "quiz-app",
-      title: "Interactive Quiz App",
-      description:
-        "Educational quiz application with multiple categories, scoring system, and progress tracking.",
-      image: "/api/placeholder/300/200",
-      tech: ["React.js", "TypeScript", "Context API", "CSS Modules"],
-      category: "small-projects",
-      liveUrl: "#",
-      githubUrl: "#",
-      features: ["Multiple Categories", "Score Tracking", "Timer Function"],
-      status: "completed",
-      date: "2023",
-    },
-    {
-      id: "markdown-editor",
-      title: "Markdown Editor",
-      description:
-        "Real-time markdown editor with live preview, syntax highlighting, and file management.",
-      image: "/api/placeholder/300/200",
-      tech: ["React.js", "Monaco Editor", "Markdown Parser", "File System API"],
-      category: "small-projects",
-      liveUrl: "#",
-      githubUrl: "#",
-      features: ["Live Preview", "Syntax Highlighting", "File Export"],
-      status: "completed",
-      date: "2023",
-    },
-  ];
-
-  const filteredProjects = projects.filter(
-    (project) => activeFilter === "all" || project.category === activeFilter
-  );
-
-  const completeApps = filteredProjects.filter(
-    (p) => p.category === "complete-apps"
-  );
-  const smallProjects = filteredProjects.filter(
-    (p) => p.category === "small-projects"
-  );
-
-  const ProjectCard: React.FC<{
-    project: Project;
-    size: "large" | "small";
-  }> = ({ project, size }) => (
-    <div
-      className={`bg-white/60 backdrop-blur-sm rounded-xl border border-slate-200/60 hover:border-blue-300/60 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden group ${
-        size === "large" ? "h-auto" : "h-full"
-      }`}
-    >
-      <div className="relative overflow-hidden">
-        <Image
-          src={project.image}
-          alt={project.title}
-          className={`w-full object-cover transition-transform duration-300 group-hover:scale-105 ${
-            size === "large" ? "h-48" : "h-32"
-          }`}
-        />
-        <div className="absolute top-3 right-3 flex space-x-2">
-          {project.status === "in-progress" && (
-            <span className="px-2 py-1 bg-yellow-500 text-white text-xs rounded-full font-medium">
-              In Progress
-            </span>
-          )}
-          <span className="px-2 py-1 bg-blue-500 text-white text-xs rounded-full font-medium">
-            {project.category === "complete-apps" ? "Full App" : "Project"}
-          </span>
-        </div>
-      </div>
-
-      <div className="p-6">
-        <div className="flex items-start justify-between mb-3">
-          <h3
-            className={`font-bold text-slate-800 group-hover:text-blue-600 transition-colors ${
-              size === "large" ? "text-xl" : "text-lg"
-            }`}
-          >
-            {project.title}
-          </h3>
-          {project.teamSize && (
-            <div className="flex items-center text-slate-500 text-sm">
-              <Users size={14} className="mr-1" />
-              {project.teamSize}
-            </div>
-          )}
-        </div>
-
-        <p className="text-slate-600 text-sm mb-4 line-clamp-2">
-          {project.description}
-        </p>
-
-        <div className="flex flex-wrap gap-1 mb-4">
-          {project.tech
-            .slice(0, size === "large" ? 5 : 3)
-            .map((tech, _index) => (
-              <span
-                key={tech}
-                className="px-2 py-1 bg-slate-100 text-slate-700 text-xs rounded-md font-medium"
-              >
-                {tech}
-              </span>
-            ))}
-          {project.tech.length > (size === "large" ? 5 : 3) && (
-            <span className="px-2 py-1 bg-slate-200 text-slate-600 text-xs rounded-md">
-              +{project.tech.length - (size === "large" ? 5 : 3)}
-            </span>
-          )}
-        </div>
-
-        {size === "large" && (
-          <div className="mb-4">
-            <div className="grid grid-cols-2 gap-1 text-xs text-slate-600">
-              {project.features.slice(0, 4).map((feature, _index) => (
-                <div key={feature} className="flex items-center">
-                  <div className="w-1 h-1 bg-green-500 rounded-full mr-2"></div>
-                  {feature}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        <div className="flex items-center justify-between pt-4 border-t border-slate-200/60">
-          <div className="flex items-center text-slate-500 text-xs">
-            <Calendar size={12} className="mr-1" />
-            {project.date}
-          </div>
-          <div className="flex space-x-2">
-            {project.liveUrl && (
-              <a
-                href={project.liveUrl}
-                className="flex items-center px-3 py-1 bg-blue-500 text-white text-xs rounded-md hover:bg-blue-600 transition-colors"
-              >
-                <Globe size={12} className="mr-1" />
-                Live
-              </a>
-            )}
-            {project.githubUrl && (
-              <a
-                href={project.githubUrl}
-                className="flex items-center px-3 py-1 bg-slate-700 text-white text-xs rounded-md hover:bg-slate-800 transition-colors"
-              >
-                <Github size={12} className="mr-1" />
-                Code
-              </a>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+const ProjectsPage = () => {
+  // Fixed: Type should be string | null instead of just null
+  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-4 h-4 bg-blue-200 rounded-full opacity-60 animate-bounce"></div>
-        <div className="absolute top-32 right-20 w-6 h-6 bg-indigo-200 rounded-full opacity-40 animate-pulse"></div>
-        <div className="absolute top-48 left-1/4 w-3 h-3 bg-slate-300 rounded-full opacity-50 animate-ping"></div>
-        <div
-          className="absolute bottom-32 left-16 w-4 h-4 bg-indigo-100 rounded-full opacity-50 animate-pulse"
-          style={{ animationDelay: "2s" }}
-        ></div>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-16 px-6">
+      <div className="max-w-6xl mx-auto">
+        {/* Animated Header */}
+        <div className="animate-fade-in-down">
+          <h1 className="text-4xl font-bold text-gray-900 text-center mb-4">
+            My Projects
+          </h1>
+          <p className="text-gray-600 text-center max-w-2xl mx-auto mb-12">
+            Explore my recent projects showcasing clean architecture, state
+            management, and responsive UI with modern React and TypeScript
+            practices.
+          </p>
+        </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-        <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-slate-200/60 overflow-hidden">
-          <div className="bg-slate-100/80 px-6 py-4 border-b border-slate-200/60 flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <div className="flex space-x-2">
-                <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+          {projects.map((project, index) => (
+            <div
+              key={project.title}
+              onMouseEnter={() => setHoveredProject(project.title)}
+              onMouseLeave={() => setHoveredProject(null)}
+              className="bg-white rounded-2xl shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col animate-fade-in-up"
+              style={{
+                animationDelay: `${index * 100}ms`,
+                animationFillMode: "backwards",
+              }}
+            >
+              <div className="relative w-full h-52 overflow-hidden group">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
-              <div className="ml-4 text-slate-600 font-mono text-sm">
-                /projects
-              </div>
-            </div>
 
-            <div className="flex space-x-2">
-              {(["all", "complete-apps", "small-projects"] as const).map(
-                (filter) => (
-                  <button
-                    type="button"
-                    key={filter}
-                    onClick={() => setActiveFilter(filter)}
-                    className={`px-3 py-1 text-xs rounded-md font-medium transition-colors ${
-                      activeFilter === filter
-                        ? "bg-blue-500 text-white"
-                        : "bg-slate-200 text-slate-600 hover:bg-slate-300"
-                    }`}
-                  >
-                    {filter === "all"
-                      ? "All"
-                      : filter
-                          .split("-")
-                          .map(
-                            (word) =>
-                              word.charAt(0).toUpperCase() + word.slice(1)
-                          )
-                          .join(" ")}
-                  </button>
-                )
-              )}
-            </div>
-          </div>
-
-          <div className="p-8">
-            <div className="text-green-600 font-mono text-sm mb-6">
-              ls -la projects
-            </div>
-
-            <div className="mb-8">
-              <h1 className="text-4xl font-bold text-slate-800 mb-4">
-                My Projects
-              </h1>
-              <p className="text-slate-600 text-lg">
-                A collection of applications and projects I've built, from
-                comprehensive full-stack applications to focused utility tools.
-              </p>
-            </div>
-
-            {(activeFilter === "all" || activeFilter === "complete-apps") &&
-              completeApps.length > 0 && (
-                <div className="mb-12">
-                  <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center">
-                    <span className="text-blue-500 mr-2">#</span>
-                    complete-apps
-                  </h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {completeApps.map((project) => (
-                      <ProjectCard
-                        key={project.id}
-                        project={project}
-                        size="large"
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-            {(activeFilter === "all" || activeFilter === "small-projects") &&
-              smallProjects.length > 0 && (
+              <div className="p-6 flex-1 flex flex-col justify-between">
                 <div>
-                  <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center">
-                    <span className="text-green-500 mr-2">#</span>
-                    small-projects
-                  </h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {smallProjects.map((project) => (
-                      <ProjectCard
-                        key={project.id}
-                        project={project}
-                        size="small"
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2 transition-colors hover:text-blue-600">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+                    {project.description}
+                  </p>
 
-            <div className="mt-12 pt-8 border-t border-slate-200/60">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <div className="text-2xl font-bold text-blue-600">
-                    {projects.length}
-                  </div>
-                  <div className="text-sm text-slate-600">Total Projects</div>
+                  {/* Conditional GitHub Links for Recipe Blog */}
+                  {project.title === "Recipe Blog (Fullstack)" && (
+                    <div
+                      className={`transition-all duration-500 transform ${
+                        hoveredProject === project.title
+                          ? "opacity-100 translate-y-0"
+                          : "opacity-0 -translate-y-2"
+                      }`}
+                    >
+                      {project.frontendGithub && (
+                        <p className="text-sm text-gray-700 mb-1">
+                          <strong>Frontend Repo:</strong>{" "}
+                          <a
+                            href={project.frontendGithub}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 underline break-all transition-colors"
+                          >
+                            {project.frontendGithub}
+                          </a>
+                        </p>
+                      )}
+                      {project.backendGithub && (
+                        <p className="text-sm text-gray-700 mb-1">
+                          <strong>Backend Repo:</strong>{" "}
+                          <a
+                            href={project.backendGithub}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 underline break-all transition-colors"
+                          >
+                            {project.backendGithub}
+                          </a>
+                        </p>
+                      )}
+                    </div>
+                  )}
+
+                  {project.liveUrl && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-blue-600 hover:text-blue-800 underline break-all mt-2 block transition-all hover:translate-x-1"
+                    >
+                      {project.liveUrl.replace(/^https?:\/\//, "")}
+                    </a>
+                  )}
                 </div>
-                <div className="bg-green-50 rounded-lg p-4">
-                  <div className="text-2xl font-bold text-green-600">
-                    {completeApps.length}
+
+                <div className="flex items-center justify-between mt-auto pt-4">
+                  {project.status && (
+                    <span
+                      className={`text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-2 transition-all hover:scale-105 ${
+                        project.status === "Active"
+                          ? "bg-green-100 text-green-700"
+                          : "bg-yellow-100 text-yellow-700"
+                      }`}
+                    >
+                      {project.status === "In Progress" && (
+                        <Loader2
+                          size={12}
+                          className="animate-spin text-yellow-700"
+                        />
+                      )}
+                      {project.status}
+                    </span>
+                  )}
+
+                  <div className="flex items-center gap-3">
+                    {/* General GitHub Icon */}
+                    {project.title !== "Recipe Blog (Fullstack)" &&
+                      project.githubUrl && (
+                        <Link
+                          href={project.githubUrl}
+                          target="_blank"
+                          aria-label={`GitHub repository for ${project.title}`}
+                          className="p-2 text-gray-700 hover:text-gray-900 transition-all hover:scale-110 hover:rotate-12"
+                        >
+                          <Github size={18} />
+                        </Link>
+                      )}
+
+                    {/* GitHub Icons for Recipe Blog */}
+                    {project.title === "Recipe Blog (Fullstack)" && (
+                      <div
+                        className={`flex items-center gap-1 transition-all duration-500 ${
+                          hoveredProject === project.title
+                            ? "opacity-100 translate-x-0"
+                            : "opacity-0 translate-x-4"
+                        }`}
+                      >
+                        {project.frontendGithub && (
+                          <Link
+                            href={project.frontendGithub}
+                            target="_blank"
+                            aria-label={`Frontend GitHub for ${project.title}`}
+                            className="p-2 text-gray-700 hover:text-gray-900 transition-all hover:scale-110 hover:rotate-12"
+                          >
+                            <Github size={18} />
+                          </Link>
+                        )}
+                        {project.backendGithub && (
+                          <Link
+                            href={project.backendGithub}
+                            target="_blank"
+                            aria-label={`Backend GitHub for ${project.title}`}
+                            className="p-2 text-gray-700 hover:text-gray-900 transition-all hover:scale-110 hover:rotate-12"
+                          >
+                            <Github size={18} />
+                          </Link>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Live Demo Icon */}
+                    {project.liveUrl && (
+                      <Link
+                        href={project.liveUrl}
+                        target="_blank"
+                        aria-label={`Live demo for ${project.title}`}
+                        className="p-2 text-gray-700 hover:text-blue-600 transition-all hover:scale-110 hover:-translate-y-1"
+                      >
+                        <ExternalLink size={18} />
+                      </Link>
+                    )}
                   </div>
-                  <div className="text-sm text-slate-600">Complete Apps</div>
-                </div>
-                <div className="bg-purple-50 rounded-lg p-4">
-                  <div className="text-2xl font-bold text-purple-600">
-                    {smallProjects.length}
-                  </div>
-                  <div className="text-sm text-slate-600">Small Projects</div>
-                </div>
-                <div className="bg-orange-50 rounded-lg p-4">
-                  <div className="text-2xl font-bold text-orange-600">
-                    {projects.filter((p) => p.status === "in-progress").length}
-                  </div>
-                  <div className="text-sm text-slate-600">In Progress</div>
                 </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
+
+      {/* Add CSS animations in your global styles or as a style tag */}
+      <style jsx>{`
+        @keyframes fadeInDown {
+          from {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-fade-in-down {
+          animation: fadeInDown 0.6s ease-out;
+        }
+
+        .animate-fade-in-up {
+          animation: fadeInUp 0.6s ease-out;
+        }
+      `}</style>
     </div>
   );
 };
